@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   patch '/admin/invoices/:id', to: 'admin_invoices#update'
 
   get '/merchants/:id/dashboard', to: 'merchants#dashboard'
+
   get '/merchants/:id/invoices', to: 'merchant_invoices#index'
   get '/merchants/:id/invoices/:invoice_id', to: 'merchant_invoices#show'
   patch '/merchants/:id/invoices/:invoice_id', to: 'merchant_invoices#update'
@@ -26,5 +27,9 @@ Rails.application.routes.draw do
   get '/merchants/:id/items/:item_id', to: 'merchant_items#show'
   get '/merchants/:id/items/:item_id/edit', to: 'merchant_items#edit'
   patch '/merchants/:id/items/:item_id', to: 'merchant_items#update'
+
+  resources :merchants do
+    resources :bulk_discounts, except: [:destroy]
+  end
 
 end

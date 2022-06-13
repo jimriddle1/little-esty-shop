@@ -168,6 +168,12 @@ RSpec.describe 'merchants dashboard' do
     expect(page).to_not have_content("#{@cust7.first_name} #{@cust7.last_name}")
   end
 
+  it 'shows a link to all discounts, bulk discounts index page, see all discounts are linked and their info' do
+    visit "/merchants/#{@merch1.id}/dashboard"
+    click_link "All Discounts"
+    expect(current_path).to eq("/merchants/#{@merch1.id}/bulk_discounts")
+  end
+
   # it 'displays repo name' do
   #   visit "/merchants/#{@merch1.id}/dashboard"
   #   expect(page).to have_content('little-esty-shop')
