@@ -1,5 +1,8 @@
 <h1>Discounts</h1><hr>
 <%= link_to "Create Discount", new_merchant_bulk_discount_path %>
 <% @bulk_discounts.each do |bd| %>
-<p> <%= link_to "Discount #{bd.id}", merchant_bulk_discount_path(bd.merchant.id, bd.id) %> Percent Discount: <%= "#{bd.percentage_discount}" %>%, Quantity Threshold: <%= "#{bd.quantity_threshold}" %></p>
+<div id=<%= bd.id %>>
+<p><%= link_to "Discount #{bd.id}", merchant_bulk_discount_path(bd.merchant.id, bd.id) %> Percent Discount: <%= "#{bd.percentage_discount}" %>%, Quantity Threshold: <%= "#{bd.quantity_threshold}" %></p>
+  <%= link_to "Delete", merchant_bulk_discount_path(bd.merchant.id, bd.id), method: :delete, local: true %>
+</div>
 <% end %>
