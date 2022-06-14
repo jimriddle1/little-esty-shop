@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'bulk discounts new page' do
+RSpec.describe 'bulk discounts edit page' do
   before :each do
     @merch1 = Merchant.create!(name: 'Floopy Fopperations')
     @customer1 = Customer.create!(first_name: 'Joe', last_name: 'Bob')
@@ -20,13 +20,19 @@ RSpec.describe 'bulk discounts new page' do
     @bd_2 = @merch1.bulk_discounts.create!(percentage_discount: 20.00, quantity_threshold: 25)
   end
 
-  it 'creates a new bulk discount' do
-    visit new_merchant_bulk_discount_path(@merch1.id)
-    fill_in "Percentage discount", with: 15
-    fill_in "Quantity threshold", with: 20
+  it 'can edit a discount from the original numbers' do
+    visit (edit_merchant_bulk_discount_path("#{@merch1.id}", "#{@bd_1.id}"))
+
+    expect(page).to have_field(:percentage_discount, with: 10.0)
+    expect(page).to have_field(:quantity_threshold, with: 15)
+    expect(page).to_not have_content("Percentage discount: 12.0%")
+    expect(page).to_not have_content("Quantity threshold: 18")
+
+    fill_in "Percentage discount", with: 12
+    fill_in "Quantity threshold", with: 18
     click_on "Submit"
-    expect(current_path).to eq(merchant_bulk_discounts_path(@merch1.id))
-    expect(page).to have_content("Percent Discount: 15.0%")
-    expect(page).to have_content("Quantity Threshold: 20")
+    expect(current_path).to eq(merchant_bulk_discount_path("#{@merch1.id}", "#{@bd_1.id}"))
+    expect(page).to have_content("Discount: 12.0%")
+    expect(page).to have_content("Quantity: 18")
   end
 end
