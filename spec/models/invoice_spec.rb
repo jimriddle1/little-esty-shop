@@ -6,6 +6,7 @@ RSpec.describe Invoice do
     it { should have_many :invoice_items }
     it { should have_many(:items).through(:invoice_items) }
     it { should have_many(:merchants).through(:items) }
+    it { should have_many(:bulk_discounts).through(:merchants) }
   end
 
   describe 'instance methods' do
@@ -29,6 +30,8 @@ RSpec.describe Invoice do
       @ii2 = InvoiceItem.create!(item_id: @item2.id.to_s, invoice_id: @inv1.id.to_s, quantity: 200,
                                  unit_price: 2000, status: 1)
       @ii3 = InvoiceItem.create!(item_id: @item4.id.to_s, invoice_id: @inv2.id.to_s, quantity: 300)
+      @bd_1 = @merch1.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 150)
+      @bd_2 = @merch1.bulk_discounts.create!(percentage_discount: 20.00, quantity_threshold: 250)
     end
 
     describe '#invoice_total_revenue(merch_id)' do
@@ -48,6 +51,13 @@ RSpec.describe Invoice do
         @ii4 = InvoiceItem.create!(item_id: @item2.id.to_s, invoice_id: @inv1.id.to_s, quantity: 1,
                                    unit_price: 2000, status: 1)
         expect(@inv1.invoice_revenue).to eq(502_000)
+      end
+    end
+
+    describe '#discounted_revenue' do
+      it 'can get the discounted amount for an invoice' do
+
+        expect(@inv1.discounted_revenue).to eq(460000)
       end
     end
   end
