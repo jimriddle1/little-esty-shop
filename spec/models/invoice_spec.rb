@@ -57,7 +57,7 @@ RSpec.describe Invoice do
     describe '#discounted_revenue' do
       it 'can get the discounted amount for an invoice' do
 
-        expect(@inv1.discounted_revenue).to eq(460000)
+        expect(@inv1.discounted_revenue(@merch1.id)).to eq(460000)
       end
     end
   end
