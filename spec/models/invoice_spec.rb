@@ -29,7 +29,7 @@ RSpec.describe Invoice do
                                  unit_price: 1000, status: 1)
       @ii2 = InvoiceItem.create!(item_id: @item2.id.to_s, invoice_id: @inv1.id.to_s, quantity: 200,
                                  unit_price: 2000, status: 1)
-      @ii3 = InvoiceItem.create!(item_id: @item4.id.to_s, invoice_id: @inv2.id.to_s, quantity: 300)
+      @ii3 = InvoiceItem.create!(item_id: @item4.id.to_s, invoice_id: @inv2.id.to_s, quantity: 100, unit_price: 100, status: 1)
       @bd_1 = @merch1.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 150)
       @bd_2 = @merch1.bulk_discounts.create!(percentage_discount: 20.00, quantity_threshold: 250)
     end
@@ -59,6 +59,9 @@ RSpec.describe Invoice do
 
         expect(@inv1.discounted_revenue(@merch1.id)).to eq(460000)
       end
+      it 'can return revenue if discount is 0' do
+        expect(@inv2.discounted_revenue(@merch2.id)).to eq(10000)
+      end
     end
 
   end
@@ -84,6 +87,7 @@ RSpec.describe Invoice do
       InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice4.id, quantity: 5, unit_price: 1000, status: 2,
                           created_at: '2022-06-03 21:08:15 UTC')
     end
+
     it 'gets invoices with items not shipped in ascending order' do
       expect(Invoice.all.incomplete).to match_array([@invoice3, @invoice1, @invoice2])
     end

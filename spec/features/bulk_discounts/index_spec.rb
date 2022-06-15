@@ -56,7 +56,6 @@ RSpec.describe 'bulk discounts index page' do
 
   it 'shows upcoming holidays' do
     visit merchant_bulk_discounts_path(@merch1.id)
-    save_and_open_page
     expect(page).to have_css('#holidays')
   end
 end

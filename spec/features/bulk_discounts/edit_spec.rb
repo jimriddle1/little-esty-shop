@@ -23,8 +23,8 @@ RSpec.describe 'bulk discounts edit page' do
   it 'can edit a discount from the original numbers' do
     visit (edit_merchant_bulk_discount_path("#{@merch1.id}", "#{@bd_1.id}"))
 
-    expect(page).to have_field(:percentage_discount, with: 10.0)
-    expect(page).to have_field(:quantity_threshold, with: 15)
+    expect(page).to have_field("Percentage discount", with: 10.0)
+    expect(page).to have_field("Quantity threshold", with: 15)
     expect(page).to_not have_content("Percentage discount: 12.0%")
     expect(page).to_not have_content("Quantity threshold: 18")
 
