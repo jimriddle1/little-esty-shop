@@ -6,3 +6,11 @@
   <%= link_to "Delete", merchant_bulk_discount_path(bd.merchant.id, bd.id), method: :delete, local: true %>
 </div>
 <% end %>
+
+<% if !@holidays.upcoming_holidays.empty? %>
+<div id="holidays">
+  <% @holidays.upcoming_holidays[0..2].each do |holiday| %>
+  <p><%= holiday.name %>, <%= holiday.date %></p>
+  <% end %>
+</div>
+<% end %>
