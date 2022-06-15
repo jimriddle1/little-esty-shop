@@ -10,4 +10,11 @@ class InvoiceItem < ApplicationRecord
   def self.item_revenue
     sum('quantity * unit_price')
   end
+
+  def applied_discounts
+    bulk_discounts
+    .where('bulk_discounts.quantity_threshold <= ?', self.quantity)
+    .order('bulk_discounts.quantity_threshold desc')
+    .first
+  end
 end

@@ -11,7 +11,10 @@
           <%= f.label "New Status" %>
           <%= f.select :status, ["pending", "packaged", "shipped"], selected: invoice_item.status %>
           <%= f.submit "Update Item Status" %>
-        <% end %><hr>
+        <% end %>
+        <p><% if invoice_item.applied_discounts != nil %>
+          <%= link_to "Discount #{invoice_item.applied_discounts.id}", merchant_bulk_discount_path(@merchant.id, invoice_item.applied_discounts.id) %>
+        <% end %></p><hr>
     <% end %>
     </div>
 <% end %>

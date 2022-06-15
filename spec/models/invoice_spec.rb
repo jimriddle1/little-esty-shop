@@ -60,6 +60,7 @@ RSpec.describe Invoice do
         expect(@inv1.discounted_revenue(@merch1.id)).to eq(460000)
       end
     end
+
   end
 
   describe 'class methods' do
