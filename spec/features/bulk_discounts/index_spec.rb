@@ -53,4 +53,10 @@ RSpec.describe 'bulk discounts index page' do
     expect(page).to_not have_content("Percent Discount: 20.0%")
     expect(page).to_not have_content("Quantity Threshold: 25")
   end
+
+  it 'shows upcoming holidays' do
+    visit merchant_bulk_discounts_path(@merch1.id)
+    save_and_open_page
+    expect(page).to have_css('#holidays')
+  end
 end

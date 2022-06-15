@@ -1,5 +1,5 @@
 class Holiday
-  attr_reader: :name, :date
+  attr_reader :name, :date
 
   def initialize(data)
     @name = data[:name]
