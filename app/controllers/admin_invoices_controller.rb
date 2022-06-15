@@ -14,6 +14,6 @@ class AdminInvoicesController < ApplicationController
     invoice.save
     redirect_to "/admin/invoices/#{invoice.id}"
   end
-  
+
 
 end
