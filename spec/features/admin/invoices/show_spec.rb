@@ -71,7 +71,6 @@ RSpec.describe "Admin Invoice Show" do
       @bd_1 = @merch1.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 150)
       @bd_2 = @merch1.bulk_discounts.create!(percentage_discount: 20.00, quantity_threshold: 250)
       visit "/admin/invoices/#{@inv1.id}"
-      save_and_open_page
       expect(page).to have_content("Discounted Revenue: 940000.0")
     end
 

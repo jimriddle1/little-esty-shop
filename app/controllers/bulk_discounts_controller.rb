@@ -45,7 +45,7 @@ class BulkDiscountsController < ApplicationController
   private
 
     def bulk_discount_params
-      params.permit(:percentage_discount, :quantity_threshold)
+      params.require(:bulk_discount).permit(:percentage_discount, :quantity_threshold)
     end
 
 

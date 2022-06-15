@@ -1,4 +1,4 @@
-<%= form_with url: merchant_bulk_discount_path(@bulk_discount_edit.merchant_id, @bulk_discount_edit.id), method: :patch, local: true do |f|  %>
+<%= form_with model: @bulk_discount_edit, url: merchant_bulk_discount_path(@bulk_discount_edit.merchant_id, @bulk_discount_edit.id), method: :patch, local: true do |f|  %>
   <%= f.label :percentage_discount %>
   <%= f.text_field :percentage_discount, value: @bulk_discount_edit.percentage_discount%>
 
